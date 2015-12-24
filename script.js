@@ -77,9 +77,17 @@ window.onload = function() {
     var translate_remainder = function(remainder) {
         switch(remainder) {
             case "FROM NOW":
+            case "IN THE FUTURE":
+            case "FUTURE":
+            case "LATER":
                 return "+";
             case "AGO":
             case "BEFORE":
+            case "BEFORE NOW":
+            case "PAST":
+            case "IN THE PAST":
+            case "AGONE":
+            case "PRIOR":
                 return "-";
             default:
                 return "ER"
