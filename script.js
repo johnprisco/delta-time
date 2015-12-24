@@ -50,6 +50,10 @@ window.onload = function() {
         document.getElementById("output").innerHTML = output_date;
     }
 
+    document.getElementById("input").onkeyup = function(e) {
+        if(e.keyCode === 13) document.getElementById("submit").click();
+    }
+
     var translate_time_string = function(time_string) {
         switch(time_string) {
             case "SECOND":
