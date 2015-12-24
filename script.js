@@ -45,7 +45,9 @@ window.onload = function() {
         current_date = new Date();
         var input = document.getElementById("input").value;
         var actions = parse_input(input);
-        apply_actions(current_date, actions);
+        var new_date = apply_actions(current_date, actions);
+        var output_date = format_date(new_date);
+        document.getElementById("output").innerHTML = output_date;
     }
 
     var translate_time_string = function(time_string) {
@@ -150,9 +152,23 @@ window.onload = function() {
                     break;
             }
         }
-        current_date = new Date();
-        console.log("Current Date:  " + current_date);
-        console.log("Adjusted Date: " + date);
-        document.getElementById("output").innerHTML = date
+        return date;
+    }
+
+    // http://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
+    // from user alpha123
+    var pad_digits = function(number, digits) { return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number; }
+
+    var format_date = function(date) {
+        var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var formatted = weekday[date.getDay()] + ", " + month[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear() + " at ";
+        var am_pm = (date.getHours() > 11) ? "PM" : "AM";
+        if(date.getHours() === "0") formatted += "12:";
+        else if(date.getHours() === 12) formatted += date.getHours() + ":";
+        else if(date.getHours() > 12) formatted += "" + (date.getHours() - 12) + ":";
+        else formatted += date.getHours() + ":";
+        formatted += pad_digits(date.getMinutes(), 2) + ":" + pad_digits(date.getSeconds(), 2) + " " + am_pm;
+        return formatted;
     }
 }
