@@ -101,7 +101,7 @@ window.onload = function() {
     // takes a string input and returns the action array
     var parse_input = function(input) {
         input = input.toUpperCase();
-        var input_words = input.split(" ");
+        var input_words = input.split(/\s+AND\s+|\s+|,\s+/);
         var actions = [];
         var number = "";
         var remainder;
