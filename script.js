@@ -45,7 +45,6 @@ window.onload = function() {
         current_date = new Date();
         var input = document.getElementById("input").value;
         var actions = parse_input(input);
-        console.log(actions);
         if(actions[0] === "ER")
             document.getElementById("output").innerHTML = "Couldn't recognize the word \"" + actions[1] + "\".";
         else {
@@ -59,7 +58,7 @@ window.onload = function() {
         if(e.keyCode === 13) document.getElementById("submit").click();
     };
 
-    var translate_time_string = function(time_string) {
+    var translate_input = function(time_string) {
         switch(time_string) {
             // BASE CASES
             case "SECOND":
@@ -144,25 +143,6 @@ window.onload = function() {
                 return "ER";
         }
     };
-    var translate_remainder = function(remainder) {
-        switch(remainder) {
-            case "FROM NOW":
-            case "IN THE FUTURE":
-            case "FUTURE":
-            case "LATER":
-                return "+";
-            case "AGO":
-            case "BEFORE":
-            case "BEFORE NOW":
-            case "PAST":
-            case "IN THE PAST":
-            case "AGONE":
-            case "PRIOR":
-                return "-";
-            default:
-                return "ER";
-        }
-    };
 
     // takes a string input and returns the action array
     var parse_input = function(input) {
@@ -177,7 +157,7 @@ window.onload = function() {
                 number = word;
             }
             else {
-                var translated_time = translate_time_string(word);
+                var translated_time = translate_input(word);
                 if(translated_time === "+" || translated_time == "-") {
                     plus_minus = translated_time;
                     break;
