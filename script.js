@@ -45,9 +45,14 @@ window.onload = function() {
         current_date = new Date();
         var input = document.getElementById("input").value;
         var actions = parse_input(input);
-        var new_date = apply_actions(current_date, actions);
-        var output_date = format_date(new_date);
-        document.getElementById("output").innerHTML = output_date;
+        console.log(actions);
+        if(actions[0] === "ER")
+            document.getElementById("output").innerHTML = "Couldn't recognize the word \"" + actions[1] + "\".";
+        else {
+            var new_date = apply_actions(current_date, actions);
+            var output_date = format_date(new_date);
+            document.getElementById("output").innerHTML = output_date;
+        }
     };
 
     document.getElementById("input").onkeyup = function(e) {
@@ -120,6 +125,20 @@ window.onload = function() {
             case "FORTNIGHT":
             case "FORTNIGHTS":
                 return "fn";
+            // END OF STRING, PLUS MINUS
+            case "FROM NOW":
+            case "IN THE FUTURE":
+            case "FUTURE":
+            case "LATER":
+                return "+";
+            case "AGO":
+            case "BEFORE":
+            case "BEFORE NOW":
+            case "PAST":
+            case "IN THE PAST":
+            case "AGONE":
+            case "PRIOR":
+                return "-";
             // NO CASE FOUND: ERROR
             default:
                 return "ER";
@@ -148,10 +167,10 @@ window.onload = function() {
     // takes a string input and returns the action array
     var parse_input = function(input) {
         input = input.toUpperCase();
-        var input_words = input.split(/\s+AND\s+|\s+|,\s+/);
+        var input_words = input.split(/,?\s+AND\s+|\s+|,\s+/);
         var actions = [];
         var number = "";
-        var remainder;
+        var plus_minus = "+";
         for(var i in input_words) {
             var word = input_words[i];
             if(!isNaN(word)) {
@@ -159,17 +178,20 @@ window.onload = function() {
             }
             else {
                 var translated_time = translate_time_string(word);
-                if(translated_time !== "ER") {
-                    actions.push(number + translate_time_string(word));
+                if(translated_time === "+" || translated_time == "-") {
+                    plus_minus = translated_time;
+                    break;
+                }
+                else if(translated_time !== "ER") {
+                    actions.push(number + translated_time);
                     number = "";
                 }
                 else {
-                    remainder = input_words.slice(i - input_words.length).join(" ");
-                    break;
+                    actions = ["ER", word];
+                    return actions;
                 }
             }
         }
-        var plus_minus = translate_remainder(remainder);
         for(i in actions) {
             actions[i] = plus_minus + actions[i];
         }
