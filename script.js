@@ -9,53 +9,58 @@ window.onload = function() {
         var current_seconds = current_date.getSeconds();
         new_date.setSeconds(current_seconds + seconds);
         return new_date;
-    }
+    };
     var addMinutes = function(date, minutes) {
         var new_date = current_date;
         var current_minutes = current_date.getMinutes();
         new_date.setMinutes(current_minutes + minutes);
         return new_date;
-    }
+    };
     var addHours = function(date, hours) {
         var new_date = current_date;
         var current_hours = current_date.getHours();
         new_date.setHours(current_hours + hours);
         return new_date;
-    }
+    };
     var addDays = function(date, days) {
         var new_date = current_date;
         var current_days = current_date.getDate();
         new_date.setDate(current_days + days);
         return new_date;
-    }
+    };
     var addMonths = function(date, months) {
         var new_date = current_date;
         var current_months = current_date.getMonth();
         new_date.setMonth(current_months + months);
         return new_date;
-    }
+    };
     var addYears = function(date, years) {
         var new_date = current_date;
         var current_years = current_date.getFullYear();
         new_date.setFullYear(current_years + years);
         return new_date;
-    }
+    };
 
     document.getElementById("submit").onclick = function() {
         current_date = new Date();
         var input = document.getElementById("input").value;
         var actions = parse_input(input);
-        var new_date = apply_actions(current_date, actions);
-        var output_date = format_date(new_date);
-        document.getElementById("output").innerHTML = output_date;
-    }
+        if(actions[0] === "ER")
+            document.getElementById("output").innerHTML = "Couldn't recognize the word \"" + actions[1] + "\".";
+        else {
+            var new_date = apply_actions(current_date, actions);
+            var output_date = format_date(new_date);
+            document.getElementById("output").innerHTML = output_date;
+        }
+    };
 
     document.getElementById("input").onkeyup = function(e) {
         if(e.keyCode === 13) document.getElementById("submit").click();
-    }
+    };
 
-    var translate_time_string = function(time_string) {
+    var translate_input = function(time_string) {
         switch(time_string) {
+            // BASE CASES
             case "SECOND":
             case "SECONDS":
                 return "se";
@@ -67,19 +72,59 @@ window.onload = function() {
                 return "ho";
             case "DAY":
             case "DAYS":
+            case "NYCHTHEMERON":
+            case "NYCHTHEMERONS":
+            case "NYCTHEMERON":
+            case "NYCTHEMERONS":
+            case "NUCHTHEMERON":
+            case "NUCHTHEMERONS":
                 return "da";
             case "MONTH":
             case "MONTHS":
                 return "mo";
             case "YEAR":
             case "YEARS":
+            case "ANNUS":
+            case "ANNI":
                 return "ye";
-            default:
-                return "ER";
-        }
-    }
-    var translate_remainder = function(remainder) {
-        switch(remainder) {
+            // EXTRA CASES
+            case "MOMENT":
+            case "MOMENTS":
+                return "mt";
+            case "PAHAR":
+            case "PAHARS":
+                return "pa";
+            case "WEEK":
+            case "WEEKS":
+                return "we";
+            case "TRIMESTER":
+            case "TRIMESTERS":
+                return "tr";
+            case "OLYMPIAD":
+            case "OLYMPIADS":
+            case "QUADRENNIUM":
+            case "QUADRENNIUMS":
+                return "ol";
+            case "DECADE":
+            case "DECADES":
+                return "de";
+            case "CENTURY":
+            case "CENTURIES":
+                return "ce";
+            case "MILLENNIUM":
+            case "MILLENNIA":
+            case "KYR":
+            case "KYRS":
+            case "KILOYEAR":
+            case "KILOYEARS":
+                return "ml";
+            case "MYR":
+            case "MYRS":
+                return "my";
+            case "FORTNIGHT":
+            case "FORTNIGHTS":
+                return "fn";
+            // END OF STRING, PLUS MINUS
             case "FROM NOW":
             case "IN THE FUTURE":
             case "FUTURE":
@@ -93,36 +138,40 @@ window.onload = function() {
             case "AGONE":
             case "PRIOR":
                 return "-";
+            // NO CASE FOUND: ERROR
             default:
-                return "ER"
+                return "ER";
         }
-    }
+    };
 
     // takes a string input and returns the action array
     var parse_input = function(input) {
         input = input.toUpperCase();
-        var input_words = input.split(/\s+AND\s+|\s+|,\s+/);
+        var input_words = input.split(/,?\s+AND\s+|\s+|,\s+/);
         var actions = [];
         var number = "";
-        var remainder;
-        for(i in input_words) {
+        var plus_minus = "+";
+        for(var i in input_words) {
             var word = input_words[i];
             if(!isNaN(word)) {
                 number = word;
             }
             else {
-                var translated_time = translate_time_string(word);
-                if(translated_time !== "ER") {
-                    actions.push(number + translate_time_string(word));
+                var translated_time = translate_input(word);
+                if(translated_time === "+" || translated_time == "-") {
+                    plus_minus = translated_time;
+                    break;
+                }
+                else if(translated_time !== "ER") {
+                    actions.push(number + translated_time);
                     number = "";
                 }
                 else {
-                    remainder = input_words.slice(i - input_words.length).join(" ");
-                    break;
+                    actions = ["ER", word];
+                    return actions;
                 }
             }
         }
-        var plus_minus = translate_remainder(remainder);
         for(i in actions) {
             actions[i] = plus_minus + actions[i];
         }
@@ -130,11 +179,11 @@ window.onload = function() {
             var action = actions[i];
         }
         return actions;
-    }
+    };
 
     var apply_actions = function(d, actions) {
         var date = d;
-        for(i in actions) {
+        for(var i in actions) {
             var action = actions[i];
             var sign, number, time;
             if(action[0] === "+") sign = 1;
@@ -142,6 +191,7 @@ window.onload = function() {
             number = sign * parseInt(action.substring(1, action.length - 2));
             time = action.slice(-2);
             switch(time) {
+                // BASE CASES
                 case "se":
                     date = addSeconds(date, number);
                     break;
@@ -160,16 +210,47 @@ window.onload = function() {
                 case "ye":
                     date = addYears(date, number);
                     break;
+                // EXTRA CASES
+                case "mt":
+                    date = addSeconds(date, number * 90);
+                    break;
+                case "pa":
+                    date = addHours(date, number * 3);
+                    break;
+                case "we":
+                    date = addDays(date, number * 7);
+                    break;
+                case "tr":
+                    date = addMonths(date, number * 3);
+                    break;
+                case "ol":
+                    date = addYears(date, number * 4);
+                    break;
+                case "de":
+                    date = addYears(date, number * 10);
+                    break;
+                case "ce":
+                    date = addYears(date, number * 100);
+                    break;
+                case "ml":
+                    date = addYears(date, number * 1000);
+                    break;
+                case "my":
+                    date = addYears(date, number * 1000000);
+                    break;
+                case "fn":
+                    date = addDays(date, number * 14);
+                    break;
                 default:
                     break;
             }
         }
         return date;
-    }
+    };
 
     // http://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
     // from user alpha123
-    var pad_digits = function(number, digits) { return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number; }
+    var pad_digits = function(number, digits) { return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number; };
 
     var format_date = function(date) {
         var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -182,5 +263,5 @@ window.onload = function() {
         else formatted += date.getHours() + ":";
         formatted += pad_digits(date.getMinutes(), 2) + ":" + pad_digits(date.getSeconds(), 2) + " " + am_pm;
         return formatted;
-    }
-}
+    };
+};
