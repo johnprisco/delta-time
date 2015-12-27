@@ -145,43 +145,6 @@ window.onload = function() {
         }
     };
 
-    // takes a string input and returns the action array
-    var parse_input = function(input) {
-        input = input.toUpperCase();
-        var input_words = input.split(/,?\s+AND\s+|\s+|,\s+/);
-        var actions = [];
-        var number = "";
-        var plus_minus = "+";
-        for(var i in input_words) {
-            var word = input_words[i];
-            if(!isNaN(word)) {
-                number = word;
-            }
-            else {
-                var translated_time = translate_input(word);
-                if(translated_time === "+" || translated_time == "-") {
-                    plus_minus = translated_time;
-                    break;
-                }
-                else if(translated_time !== "ER") {
-                    actions.push(number + translated_time);
-                    number = "";
-                }
-                else {
-                    actions = ["ER", word];
-                    return actions;
-                }
-            }
-        }
-        for(i in actions) {
-            actions[i] = plus_minus + actions[i];
-        }
-        for(i in actions) {
-            var action = actions[i];
-        }
-        return actions;
-    };
-
     var apply_actions = function(d, actions) {
         var date = d;
         for(var i in actions) {
@@ -248,6 +211,45 @@ window.onload = function() {
         }
         return date;
     };
+
+    // takes a string input and returns the action array
+    var parse_input = function(input) {
+        input = input.toUpperCase();
+        var input_words = input.split(/,?\s+AND\s+|\s+|,\s+/);
+        var actions = [];
+        var number = "";
+        var plus_minus = "+";
+        for(var i in input_words) {
+            var word = input_words[i];
+            if(!isNaN(word)) {
+                number = word;
+            }
+            else {
+                var translated_time = translate_input(word);
+                if(translated_time === "+" || translated_time == "-") {
+                    plus_minus = translated_time;
+                    break;
+                }
+                else if(translated_time !== "ER") {
+                    actions.push(number + translated_time);
+                    number = "";
+                }
+                else {
+                    actions = ["ER", word];
+                    return actions;
+                }
+            }
+        }
+        for(i in actions) {
+            actions[i] = plus_minus + actions[i];
+        }
+        for(i in actions) {
+            var action = actions[i];
+        }
+        return actions;
+    };
+
+
 
     // http://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
     // from user alpha123
