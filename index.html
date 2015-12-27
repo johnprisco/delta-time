@@ -2,17 +2,31 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Time Test</title>
+        <title>DeltaT</title>
         <script src="script.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css">
         <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,500,700,800,900' rel='stylesheet' type='text/css'>
     </head>
     <body>
         <div id="main_content">
-            <h1 id='title'>What is/was the date and time...</h1>
-            <input id='input' placeholder='2 fortnights, 1 week, and 500 days ago'></input>
-            <button id='submit'>Submit</button>
-            <h2 id='output'><h2>
+            <ul id="tabs_menu">
+                <li class="tab current" number="1">What is...</li>
+                <li class="tab" number="2">How long...</li>
+            </ul>
+            <div id="tabs">
+                <div id="tab_1">
+                    <h1 id='title_1'>What is/was the date and time...</h1>
+                    <input class="input" id='input_1' placeholder='2 fortnights, 1 week, and 500 days ago'></input>
+                    <button id='submit_1'>Submit</button>
+                    <h2 id='output_1'><h2>
+                </div>
+                <div id="tab_2" style="display: none;">
+                    <h1 id='title_2'>How long until/since...</h1>
+                    <input class="input" id='input_2' placeholder='June 29, 1994'></input>
+                    <button id='submit_2'>Submit</button>
+                    <h2 id='output_2'><h2>
+                </div>
+            </div>
         </div>
     </body>
 </html>

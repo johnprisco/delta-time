@@ -42,7 +42,7 @@ window.onload = function() {
     };
 
     var reset_input_class = function() {
-        document.getElementById("input").className = "";
+        document.getElementById("input_1").className = "";
     };
 
     var placeholder_rotate = function() {
@@ -52,32 +52,57 @@ window.onload = function() {
             "500 centuries in the future", "525600 minutes agone"];
 
         setInterval(function() {
-            document.getElementById("input").className = "fade";
+            document.getElementById("input_1").className = "fade";
             setTimeout(function() {
                 i = (i + 1) % placeholders.length;
-                document.getElementById("input").className = "";
-                document.getElementById("input").placeholder = placeholders[i];
+                document.getElementById("input_1").className = "";
+                document.getElementById("input_1").placeholder = placeholders[i];
             }, 500);
         }, 4000);
     };
     placeholder_rotate();
 
-    document.getElementById("submit").onclick = function() {
+    document.getElementById("submit_1").onclick = function() {
         current_date = new Date();
-        var input = document.getElementById("input").value;
+        var input = document.getElementById("input_1").value;
         var actions = parse_input(input);
         if(actions[0] === "ER")
-            document.getElementById("output").innerHTML = "Couldn't recognize the word \"" + actions[1] + "\".";
+            document.getElementById("output_1").innerHTML = "Couldn't recognize the word \"" + actions[1] + "\".";
         else {
             var new_date = apply_actions(current_date, actions);
             var output_date = format_date(new_date);
-            document.getElementById("output").innerHTML = output_date;
+            document.getElementById("output_1").innerHTML = output_date;
         }
     };
 
-    document.getElementById("input").onkeyup = function(e) {
-        if(e.keyCode === 13) document.getElementById("submit").click();
+    document.getElementById("input_1").onkeyup = function(e) {
+        if(e.keyCode === 13) document.getElementById("submit_1").click();
     };
+
+    // TAB LOGIC
+    var add_tab_logic = function() {
+        var tabs = document.getElementsByClassName("tab");
+        for(var i = 0; i < tabs.length; i++) {
+            tab = tabs[i];
+            console.log("changing to ", i, "tab");
+            tab.onclick = function() {
+                var to_hide = document.getElementsByClassName("current")[0].getAttribute("number");
+                document.getElementById("tab_" + to_hide).style.display = "none";
+                clear_current_tab();
+                this.className = "tab current";
+                var to_show = document.getElementsByClassName("current")[0].getAttribute("number");
+                document.getElementById("tab_" + to_show).style.display = "block";
+
+            };
+        }
+    };
+    var clear_current_tab = function() {
+        var tabs = document.getElementsByClassName("tab");
+        for(var i = 0; i < tabs.length; i++) {
+            tabs[i].className = "tab";
+        }
+    };
+    add_tab_logic();
 
     var translate_input = function(time_string) {
         switch(time_string) {
