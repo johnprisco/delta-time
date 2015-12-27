@@ -235,8 +235,15 @@ window.onload = function() {
                     number = "";
                 }
                 else {
-                    actions = ["ER", word];
-                    return actions;
+                    var translated_rest = translate_input(input_words.slice(i - input_words.length).join(" "));
+                    if(translated_rest === "ER") {
+                        actions = ["ER", word];
+                        return actions;
+                    }
+                    else {
+                        plus_minus = translated_rest;
+                        break;
+                    }
                 }
             }
         }
