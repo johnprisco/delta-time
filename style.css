@@ -82,6 +82,19 @@ body {
   transition: opacity 0.35s ease-in-out;
 }
 
+#input.fade::-webkit-input-placeholder {
+  opacity: 0;
+}
+#input.fade:-moz-placeholder {
+  opacity: 0;
+}
+#input.fade::-moz-placeholder {
+  opacity: 0;
+}
+#input.fade:-ms-input-placeholder {
+  opacity: 0;
+}
+
 #submit {
     font-size: 1em;
     border: 1px solid #999;

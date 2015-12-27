@@ -41,6 +41,27 @@ window.onload = function() {
         return new_date;
     };
 
+    var reset_input_class = function() {
+        document.getElementById("input").className = "";
+    };
+
+    var placeholder_rotate = function() {
+        var i = 0;
+        var placeholders = ["2 fortnights, 1 week, and 500 days ago",
+            "3 years and 20 months from now", "20 days, 6 hours in the past",
+            "500 centuries in the future", "525600 minutes agone"];
+
+        setInterval(function() {
+            document.getElementById("input").className = "fade";
+            setTimeout(function() {
+                i = (i + 1) % placeholders.length;
+                document.getElementById("input").className = "";
+                document.getElementById("input").placeholder = placeholders[i];
+            }, 500);
+        }, 4000);
+    };
+    placeholder_rotate();
+
     document.getElementById("submit").onclick = function() {
         current_date = new Date();
         var input = document.getElementById("input").value;
