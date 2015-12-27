@@ -26,13 +26,14 @@ body {
 
 #tabs_menu li {
     display: inline;
-    background-color: #FFF;
+    background-color: #F4F4F4;
     padding: 2px 10px;
     border-top: 1px solid #CFCFCF;
     border-left: 1px solid #CFCFCF;
     border-right: 1px solid #CFCFCF;
     position: relative;
     z-index: 1;
+    border-radius: 2px;
 }
 
 #tabs_menu li:hover {
@@ -41,6 +42,7 @@ body {
 
 #tabs_menu .current {
     z-index: 3 !important;
+    background-color: #FFF;
 }
 
 #tabs_menu li {
