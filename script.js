@@ -125,6 +125,7 @@ window.onload = function() {
             case "FORTNIGHTS":
                 return "fn";
             // END OF STRING, PLUS MINUS
+            // TODO: bug with multiple words...
             case "FROM NOW":
             case "IN THE FUTURE":
             case "FUTURE":
