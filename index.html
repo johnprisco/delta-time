@@ -10,15 +10,21 @@
     <body>
         <div id="main_content">
             <ul id="tabs_menu">
-                <li class="tab current">What Is...</li>
-                <li class="tab">How Many...</li>
+                <li class="tab current" number="1">What Is...</li>
+                <li class="tab" number="2">How Many...</li>
             </ul>
             <div id="tabs">
                 <div id="tab_1">
-                    <h1 id='title'>What is/was the date and time...</h1>
-                    <input id='input' placeholder='2 fortnights, 1 week, and 500 days ago'></input>
-                    <button id='submit'>Submit</button>
-                    <h2 id='output'><h2>
+                    <h1 id='title_1'>What is/was the date and time...</h1>
+                    <input class="input" id='input_1' placeholder='2 fortnights, 1 week, and 500 days ago'></input>
+                    <button id='submit_1'>Submit</button>
+                    <h2 id='output_1'><h2>
+                </div>
+                <div id="tab_2" style="display: none;">
+                    <h1 id='title_2'>How much time until/since...</h1>
+                    <input class="input" id='input_2' placeholder='June 29th, 1994'></input>
+                    <button id='submit_2'>Submit</button>
+                    <h2 id='output_2'><h2>
                 </div>
             </div>
         </div>

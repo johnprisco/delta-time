@@ -52,7 +52,7 @@ body {
 }
 
 
-#tab_1 {
+#tab_1, #tab_2 {
     background-color: #FFF;
     font-family: 'Alegreya Sans', sans-serif;
     border: 1px solid #CFCFCF;
@@ -62,14 +62,14 @@ body {
     position: relative;
 }
 
-#title, #output {
+#title_1, #title_2, #output_1 {
     font-weight: 300;
     margin: 0px;
     padding: 20px 0px;
     color: #333;
 }
 
-#input {
+#input_1, #input_2 {
     width: 350px;
     font-size: 1em;
     border-radius: 2px;
@@ -79,70 +79,70 @@ body {
     -webkit-transform: translateZ(0px);
 }
 
-#input:focus {
+#input_1:focus, #input_2:focus {
     outline: none;
 }
 
-#input::-webkit-input-placeholder {
+#input_1::-webkit-input-placeholder, #input_2::-webkit-input-placeholder {
   color: #000;
   opacity: 0.5;
   -webkit-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
-#input:-moz-placeholder {
+#input_1:-moz-placeholder, #input_2:-moz-placeholder {
   color: #000;
   opacity: 0.5;
   -moz-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
-#input::-moz-placeholder {
+#input_1::-moz-placeholder, #input_2::-moz-placeholder {
   color: #000;
   opacity: 0.5;
   -moz-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
-#input:-ms-input-placeholder {
+#input_1:-ms-input-placeholder, #input_2:-ms-input-placeholder {
   color: #000;
   opacity: 0.5;
   -ms-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
 
-#input:focus::-webkit-input-placeholder {
+#input_1:focus::-webkit-input-placeholder, #input_2:focus::-webkit-input-placeholder  {
   opacity: 0;
   -webkit-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
-#input:focus:-moz-placeholder {
+#input_1:focus:-moz-placeholder, #input_2:focus:-moz-placeholder {
   opacity: 0;
   -moz-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
-#input:focus::-moz-placeholder {
+#input_1:focus::-moz-placeholder, #input_2:focus::-moz-placeholder {
   opacity: 0;
   -moz-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
-#input:focus:-ms-input-placeholder {
+#input_1:focus:-ms-input-placeholder, #input_1:focus:-ms-input-placeholder {
   opacity: 0;
   -ms-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
 
-#input.fade::-webkit-input-placeholder {
+#input_1.fade::-webkit-input-placeholder, #input_2.fade::-webkit-input-placeholder {
   opacity: 0;
 }
-#input.fade:-moz-placeholder {
+#input_1.fade:-moz-placeholder, #input_2.fade:-moz-placeholder {
   opacity: 0;
 }
-#input.fade::-moz-placeholder {
+#input_1.fade::-moz-placeholder, #input_2.fade::-moz-placeholder {
   opacity: 0;
 }
-#input.fade:-ms-input-placeholder {
+#input_1.fade:-ms-input-placeholder, #input_2.fade:-ms-input-placeholder {
   opacity: 0;
 }
 
-#submit {
+#submit_1, #submit_2 {
     font-size: 1em;
     border: 1px solid #999;
     background-color: #E9EAED;
@@ -159,12 +159,12 @@ body {
     transition: color 0.5s ease-out;
 }
 
-#submit:hover {
+#submit_1:hover, #submit_2:hover {
     color: #E9EAED;
     background-color: #555;
     cursor: pointer;
 }
 
-#submit:focus {
+#submit_1:focus, #submit_2:focus {
     outline: none;
 }
