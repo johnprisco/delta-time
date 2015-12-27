@@ -35,16 +35,22 @@ body {
     z-index: 1;
 }
 
+#tabs_menu li:hover {
+    cursor: pointer;
+}
+
 #tabs_menu .current {
     z-index: 3 !important;
 }
 
-#tabs_menu a {
+#tabs_menu li {
     text-decoration: none;
     color: #333;
     font-family: 'Alegreya Sans', sans-serif;
     font-weight: 300;
+    cursor: none;
 }
+
 
 #tab_1 {
     background-color: #FFF;

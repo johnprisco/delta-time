@@ -79,6 +79,26 @@ window.onload = function() {
         if(e.keyCode === 13) document.getElementById("submit").click();
     };
 
+    // TAB LOGIC
+    var add_tab_logic = function() {
+        var tabs = document.getElementsByClassName("tab");
+        for(var i = 0; i < tabs.length; i++) {
+            tab = tabs[i];
+            console.log("changing to ", i, "tab");
+            tab.onclick = function() {
+                clear_current_tab();
+                this.className = "tab current";
+            };
+        }
+    };
+    var clear_current_tab = function() {
+        var tabs = document.getElementsByClassName("tab");
+        for(var i = 0; i < tabs.length; i++) {
+            tabs[i].className = "tab";
+        }
+    };
+    add_tab_logic();
+
     var translate_input = function(time_string) {
         switch(time_string) {
             // BASE CASES
