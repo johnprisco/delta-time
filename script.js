@@ -84,7 +84,6 @@ window.onload = function() {
         var tabs = document.getElementsByClassName("tab");
         for(var i = 0; i < tabs.length; i++) {
             tab = tabs[i];
-            console.log("changing to ", i, "tab");
             tab.onclick = function() {
                 var to_hide = document.getElementsByClassName("current")[0].getAttribute("number");
                 document.getElementById("tab_" + to_hide).style.display = "none";
@@ -301,7 +300,49 @@ window.onload = function() {
         return actions;
     };
 
+    // ########
+    // HOW LONG
+    // ########
 
+    document.getElementById("submit_2").onclick = function() {
+        current_date = new Date();
+        var input = document.getElementById("input_2").value;
+        var date = parse_date(input);
+        var differences = calculate_differences(date, current_date);
+        console.log(differences);
+    };
+
+    document.getElementById("input_2").onkeyup = function(e) {
+        if(e.keyCode === 13) document.getElementById("submit_2").click();
+    };
+
+    var parse_date = function(input) {
+        var date = new Date(input);
+        if(date.toDateString() !== "Invalid Date") return date;
+        else {
+            console.log("invalid date");
+            // CASES FOUND SO FAR
+            // June 29th, 1994
+            // June
+            // June 29
+        }
+    };
+
+    var calculate_differences = function(date1, date2) {
+        var differences = {};
+        var ms_difference = date1.valueOf() - date2.valueOf();
+        var seconds = ms_difference / 1000;
+        differences.seconds = Math.round(seconds);
+        var minutes = seconds / 60;
+        differences.minutes = Math.round(minutes);
+        var hours = minutes / 60;
+        differences.hours = Math.round(hours);
+        var days = hours / 24;
+        differences.days = Math.round(days);
+        var weeks = days / 7;
+        differences.weeks = Math.round(weeks);
+        return differences;
+    };
 
     // http://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
     // from user alpha123
