@@ -3,6 +3,11 @@ body {
     background-color: #E9EAED
 }
 
+#credit {
+    font-family: 'Alegreya Sans', sans-serif;
+    font-size: 10px;
+}
+
 #main_content {
     text-align: center;
     position: relative;
